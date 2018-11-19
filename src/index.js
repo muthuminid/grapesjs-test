@@ -131,5 +131,4 @@ export default grapesjs.plugins.add('gjs-preset-webpage', (editor, opts = {}) =>
 
   // Load styles
   styles(editor, config);
-
 });

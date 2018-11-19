@@ -6,10 +6,8 @@
       &-bg {
         background-color: $ccol;
       }
-
       &-color {
         color: $ccol;
-
         &-h:hover {
           color: $ccol;
         }
@@ -17,3 +15,80 @@
     }
   }
 }
+
+// Overwrite default grapejs styles
+
+.#{$prefix}cv-canvas {
+  left: unset !important;
+  right: 0;
+  margin-top: 0.6rem;
+
+}
+
+.#{$prefix}pn-views-container.#{$prefix}pn-panel {
+  padding: 39px 0 0;
+  left: 0 !important;
+  padding-top: 4em;
+}
+
+.#{$prefix}pn-views.#{$prefix}pn-panel {
+  border: none;
+  left: 0 !important;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.#{$prefix}pn-commands.#{$prefix}pn-panel {
+  left: unset !important;
+  right: 0;
+  height: 4.3em;
+}
+
+.#{$prefix}pn-options.#{$prefix}pn-panel {
+  left: unset !important;
+  right: 0;
+  margin-top: 0.3rem;
+}
+
+// Custome save button
+.#{$prefix}pn-btn.saveTmp {
+  border: 1px;
+  background-color: green;
+  font-size: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  color: white;
+}
+
+// Blocks
+// Overwrite button styles :: label, active, hovering
+.#{$prefix}pn-btn {
+  display: grid;
+  font-size: 1rem;
+  &.blocksBtn:after {
+    content: 'Block';
+  }
+  &.tokensBtn:after {
+    content: 'Tokens';
+  }
+  &.styleBtn:after {
+    content: 'Style';
+  }
+  &.#{$prefix}pn-active.viewsBtn {
+    background-color: unset !important;
+    box-shadow: unset !important;
+    border-bottom: 2px solid;
+    border-color: $quaternaryColor;
+    border-radius: 0;
+    width: 30%;
+  }
+}
+
+.#{$prefix}f-b4::before {
+  content: 'E';
+}
+
+// Remove style manager classes
+.#{$prefix}clm-tags, .#{$prefix}sm-title { display: none; }
+
+// .#{$prefix}rte-toolbar .#{$prefix}rte-actionbar { display: none; }

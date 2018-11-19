@@ -19,87 +19,99 @@ export default (editor, config) => {
   const obl = 'open-blocks';
   const ful = 'fullscreen';
   const prv = 'preview';
+  const titleAttr = 'title';
+  const tooltipPosAttr = 'data-tooltip-pos';
 
+  // Remove devices configuration
   eConfig.showDevices = 0;
 
   pn.getPanels().reset([{
     id: 'commands',
-    buttons: [{}],
+    labels: [{
+      id: 'title',
+      // className: 'fa fa-square-o',
+      label: 'Template Example'
+    }]
   },{
     id: 'options',
-    buttons: [{
-      id: swv,
-      command: swv,
-      context: swv,
-      className: 'fa fa-square-o',
-    },{
-      id: prv,
-      context: prv,
-      command: e => e.runCommand(prv),
-      className: 'fa fa-eye',
-    },{
-      id: ful,
-      command: ful,
-      context: ful,
-      className: 'fa fa-arrows-alt',
-    },{
-      id: expt,
-      className: 'fa fa-code',
-      command: e => e.runCommand(expt),
-    },{
-      id: 'undo',
-      className: 'fa fa-undo',
-      command: e => e.runCommand('core:undo'),
-    },{
-      id: 'redo',
-      className: 'fa fa-repeat',
-      command: e => e.runCommand('core:redo'),
-    },{
-      id: cmdImport,
-      className: 'fa fa-download',
-      command: e => e.runCommand(cmdImport),
-    },{
-      id: cmdClear,
-      className: 'fa fa-trash',
-      command: e => e.runCommand(cmdClear),
-    }],
+    buttons: [
+      {
+        id: swv,
+        command: swv,
+        context: swv,
+        className: 'fa fa-square-o',
+        attributes: {[titleAttr]: 'Show borders'}
+      },
+      {
+        id: prv,
+        context: prv,
+        command: e => e.runCommand(prv),
+        className: 'fa fa-eye',
+        attributes: {[titleAttr]: 'Preview'}
+      },
+      {
+        id: ful,
+        command: ful,
+        context: ful,
+        className: 'fa fa-arrows-alt',
+        attributes: {[titleAttr]: 'Full screen'}
+      },
+      {
+        id: expt,
+        className: 'fa fa-code',
+        command: e => e.runCommand(expt),
+        attributes: {[titleAttr]: 'View code'}
+      },
+      {
+        id: 'undo',
+        className: 'fa fa-undo',
+        command: e => e.runCommand('core:undo'),
+        attributes: {[titleAttr]: 'Undo'}
+      },
+      {
+        id: 'redo',
+        className: 'fa fa-repeat',
+        command: e => e.runCommand('core:redo'),
+        attributes: {[titleAttr]: 'Redo'}
+      },
+      {
+        id: cmdClear,
+        className: 'fa fa-trash',
+        command: e => e.runCommand(cmdClear),
+        attributes: {[titleAttr]: 'Delete'}
+      },
+      {
+        id: 'saveTemplate',
+        className: 'saveTmp',
+        label: 'Save Template',
+        command: 'saveTemplate'
+      }
+    // {
+    //   id: cmdImport,
+    //   className: 'fa fa-download',
+    //   command: e => e.runCommand(cmdImport),
+    // },
+    ],
   },{
     id: 'views',
-    buttons  : [{
+    buttons  : [
+      {
+        id: obl,
+        command: obl,
+        className: 'fa fa-th-large viewsBtn blocksBtn'
+      },
+      {
+        id: ola,
+        command: ola,
+        className: 'fa fa-bars viewsBtn tokensBtn'
+      },
+      {
       id: osm,
       command: osm,
       active: true,
-      className: 'fa fa-paint-brush',
-    },{
-      id: otm,
-      command: otm,
-      className: 'fa fa-cog',
-    },{
-      id: ola,
-      command: ola,
-      className: 'fa fa-bars',
-    },{
-      id: obl,
-      command: obl,
-      className: 'fa fa-th-large',
-    }],
-  }]);
-
-  // Add devices buttons
-  const panelDevices = pn.addPanel({id: 'devices-c'});
-  panelDevices.get('buttons').add([{
-    id: cmdDeviceDesktop,
-    command: cmdDeviceDesktop,
-    className: 'fa fa-desktop',
-    active: 1,
-  },{
-    id: cmdDeviceTablet,
-    command: cmdDeviceTablet,
-    className: 'fa fa-tablet',
-  },{
-    id: cmdDeviceMobile,
-    command: cmdDeviceMobile,
-    className: 'fa fa-mobile',
+      className: 'fa fa-paint-brush viewsBtn styleBtn'
+      }
+    ],
   }]);
 
   const openBl = pn.getButton('views', obl);
@@ -116,4 +128,18 @@ export default (editor, config) => {
       openSmBtn && openSmBtn.set('active', 1);
     }
   });
+
+  // Update tooltip
+  let toolTip = (coll) => {
+    // console.log(coll);
+    coll.each((item) => {
+      var attr = item.get('attributes');
+      attr[tooltipPosAttr] = 'bottom';
+      item.set('attributes', attr);
+    });
+  }
+  // Add tooltip show
+  let viewPanel = pn.getPanel('options');
+  toolTip(viewPanel.get('buttons'));
+
 }
